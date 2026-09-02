@@ -12,6 +12,12 @@ cp .env.example .env
 npm run dev
 ```
 
+Run tests:
+
+```bash
+npm test
+```
+
 For production-style runs:
 
 ```bash
