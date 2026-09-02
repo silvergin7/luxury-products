@@ -21,13 +21,19 @@ export function addTransaction(
   next: NextFunction
 ): void {
   try {
-    const body = req.body;
+    const body: unknown = req.body;
 
     if (
-      !body ||
+      typeof body !== "object" ||
+      body === null ||
+      !("serialNumber" in body) ||
+      !("fromAddress" in body) ||
+      !("toAddress" in body) ||
+      !("timestamp" in body) ||
       typeof body.serialNumber !== "string" ||
       typeof body.fromAddress !== "string" ||
       typeof body.toAddress !== "string" ||
+      typeof body.timestamp !== "number" ||
       !Number.isFinite(body.timestamp)
     ) {
       throw new HttpError(400, "Invalid request body");
